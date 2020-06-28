@@ -1,0 +1,456 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+@import "compass";
+$blue: #3a8bbb;
+$teal: #3FB8AF;
+$red: #e54b4b;
+$grey-lt: #aaa;
+$grey: #777;
+
+html {
+	display: flex;
+	font-size: initial;
+}
+
+/* boostrap overrides */
+
+a, a:hover, a:visited {
+	text-decoration: none;
+}
+p{
+	margin: 0;
+}
+label {
+	display: initial;
+}
+
+/*******************/
+
+body {
+@include background-image(linear-gradient(left bottom, #226a96 0%,#99d5e8 100%));
+	font-family: 'Lato';
+	background-color: #eee;
+	color: #555;
+min-width: 100%;
+	display: flex;
+	perspective: 8000px;
+
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+#app {
+	display: flex;
+	flex-grow: 1;
+}
+ul {
+  list-style: none;
+  margin: auto;
+  padding: 0;
+}
+.card-container {
+	transform-style: preserve-3d;
+	transition: transform 1s;
+}
+li {
+	cursor: grab;
+	position: relative;
+	transform-style: preserve-3d;
+	float: left;
+	&[draggable=false]{
+		cursor: default;
+		figure.front,
+		figure.back {
+			box-shadow: none;
+		}
+	}
+	 .card-container {
+		 
+		pointer-events:none;
+	}
+	input[type="text"],
+	input[type="number"]{
+		border: 0 none;
+		border-bottom: 1px solid #eee;
+		pointer-events: initial;
+		width: 100%;
+		height: 40px;
+		margin-bottom: 20px;
+		outline: 0 none;
+		font-size: 1rem;
+		transition: border-bottom 0.2s ease-in-out;
+		&:focus {
+			border-bottom: 1px solid $blue;
+		}
+	}
+	&.placeholder{ 
+		background: rgba(255,255,255,0.2);
+		height: 494px;
+		display: flex;
+		width: 330px;
+		border-radius: 5px;
+	
+	}
+}
+
+.modal {
+	overflow-y: auto;
+	&-dialog {
+		width: 400px;
+	}
+	.fund-container {
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		height: 40px;
+		margin-left: 5px;
+		margin-top: 20px;
+		margin-bottom: 10px;
+		padding: 10px 0;
+		width: 125px;
+		text-align: right;
+	}
+	label {
+		display: inline-block;
+		width: 48%;
+	}
+	.data {
+		width: 50%;
+    text-align: right;
+    margin-left: 5px;
+    display: inline-block;
+	}
+	.smallprint {
+		font-size: .7rem;
+		text-align: right;
+	}
+	.pre-money {
+		opacity: .7;
+	}
+}
+
+h1,h2,h3,h4,h5 {
+	margin: 0;
+}
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
+}
+
+button {
+	pointer-events: initial;
+}
+
+
+
+.card-title {
+	    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+.back-arrow {
+	pointer-events: initial;
+    display: table;
+    position: absolute;
+    padding: 20px;
+    margin: -20px;
+    font-size: 1.2rem;
+	&:hover .fa {
+			color: darken($grey-lt, 20%);
+	}
+}
+.edit-money {
+	display: table;
+	position: absolute;
+	margin-top: 10px;
+	opacity: .7;
+	+ input {
+		padding-left: 15px;
+	}
+}
+.delete {
+	color: $grey;
+	pointer-events: initial;
+	text-align: center;
+	font-size: .8rem;
+	margin: 0 auto;
+	margin-top: 10px;
+	padding: 10px;
+	display: table;
+	transition: color 0.2s ease-in-out;
+	&:hover {
+		color: $red;
+	}
+}
+
+figure{
+	  backface-visibility: hidden;
+	&.front {
+  background: #fff;
+  transform: rotateY(0deg);
+	overflow: hidden;
+		pointer-events: intial;
+  border-radius: 5px;
+		padding: 20px;
+		margin: 10px;
+		width: 330px;
+		transition: all 0.2s ease-in-out;
+		box-shadow: 0 10px 20px 0 rgba(13, 59, 86, 0.5);
+		
+	}
+	&.back {
+		background-color: #fff;
+	transform: rotateY( 180deg );
+ flex-wrap: wrap;
+  display: flex;
+		flex-direction: column;
+   position: absolute;
+  left: 0;
+	margin: 10px;
+		margin-top: 0;
+	padding: 20px;
+  width: 330px;
+  height: 100%;
+  top: 0;
+		border-radius: 5px;
+		opacity: 0;
+transition: all .3s ease-in-out;
+}
+
+	.input-container {
+		flex-grow: 1;
+	}
+	
+}
+
+	.flipped figure.back {
+		opacity: 1;
+	
+	}
+	
+.flipped {
+	transform: rotateY( 180deg );
+	-webkit-transform: rotateY( 180deg );
+}
+
+
+
+
+.goal {
+	&__name {
+		color: #777;
+		font-size: .75rem;
+		text-align: center;
+		width: 80%;
+		margin: 10px auto;
+		text-transform: uppercase;
+		letter-spacing: 3px;
+	}
+	&--progress {
+		color: #222;
+		font-size: 1.7rem;
+		margin-bottom: 10px;
+		text-align: center;
+	}
+	&--remain {
+		color: #222;
+	}
+	&--amount {
+		color: #777;
+		font-size: .8rem;
+		text-align: center;
+	}
+	
+	&--top {
+
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		height: 375px;
+		&__container {
+			margin: auto;
+			position: relative;
+		}
+	}
+
+}
+
+.edit {
+		pointer-events: initial;
+		padding: 20px;
+	position: absolute;
+	right: 0;
+	margin: -20px;
+	top: 0;
+	margin-top: -13px;
+	&:hover .fa {
+			color: darken($grey-lt, 20%);
+	}
+	.fa {
+		font-size: 1.2rem;
+	}
+}
+
+.money {
+	&:before {
+			content: "$";
+		}
+}
+
+.right {
+	float: right;
+	margin-left: 5px;
+}
+
+.percent {
+	color: #777;
+}
+
+.descriptor {
+	font-size: .8rem;
+	margin-bottom: 20px;
+}
+
+.dropdown-wrapper {
+	margin-top: 10px;
+	pointer-events: initial;
+   border: 1px solid #eee;
+   border-radius: 5px;
+   position: relative;
+	cursor: pointer;
+	width: 100%;
+	transition: border 0.2s ease-in-out;
+	&:hover {
+		border: 1px solid darken(#eee, 10%);
+	}
+   &:after {
+      font-family: 'FontAwesome';
+      content: "\f107";
+      color: #3FB8AF;
+      position: absolute;
+      right: 10px;
+      top: 7px;
+   }
+   &.outline {
+      border: 1px solid rgba(#3FB8AF, .5);
+      box-shadow: 0 0 10px rgba(#3FB8AF, .2);
+   }
+}
+select {
+		cursor: pointer;
+		pointer-events: initial;
+    appearance: none;
+    background: none;
+    border: 0 none;
+    font-size: .8em;
+	padding: 10px;
+    outline: 0;
+	width: 100%;
+	display: block;
+}
+
+.button {
+	background: $blue;
+	border: 0 none;
+	color: #fff;
+	margin-bottom: auto;
+	cursor: pointer;
+	border-radius: 5px;
+		pointer-events: initial;
+	height: 44px;
+	text-transform: uppercase;
+	text-align: center;
+	font-size: .7rem;
+	letter-spacing: 2px;
+	padding: 15px;
+	transition: all 0.2s ease-in-out;
+	width: 100%;
+	&:hover {
+		background: darken($blue, 5%);
+	}
+}
+
+.fa {
+	font-family: 'FontAwesome';
+	display: block;
+	text-align: center;
+	&.category{
+			left: 0;
+	right: 0;
+	top: -40px;
+	margin: auto;
+	position: absolute;
+	}
+	&.fa-plane {
+		color: $teal;
+	}
+	&.fa-car {
+		color: $red;
+	}
+	&.fa-pencil-square-o,
+	&.fa-angle-left{
+		color: $grey-lt;
+		transition: color 0.2s ease-in-out;
+	}
+}
+
+/** svg **/
+
+
+
+.svg-container { 
+	display: inline-block;
+	position: relative;
+	width: 100%;
+	height: 100%;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.svg-content { 
+	display: inline-block;
+	margin: 0 auto;
+	margin-top: 20px;
+  width: 100%;
+}
+
+.animated {
+  animation: dash 1s cubic-bezier(0.165, 0.840, 0.440, 1.000) forwards;
+
+}
+
+.box {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+	
+}
+svg {
+	transform: rotate(-90deg);
+}
+
+text {
+  text-anchor: middle;
+}
+
+circle {
+	stroke-linecap: round;
+}
+
+.shadow {
+	opacity: .6;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
